@@ -16,19 +16,30 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased h-[100dvh] flex flex-col md:flex-row overflow-hidden select-none">
 
-  <!-- HEADER MOBILE -->
+  <!-- HEADER MOBILE LENGKAP DENGAN TOMBOL LOGOUT -->
   <header class="md:hidden bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800 z-30 shrink-0">
     <div class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black"><i data-lucide="droplet" class="w-4 h-4 fill-current"></i></div>
-      <h1 class="font-bold text-sm">AKASORA POS <span class="text-[10px] text-amber-400 font-normal">| Kasir</span></h1>
+      <div class="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black">
+        <i data-lucide="droplet" class="w-4 h-4 fill-current"></i>
+      </div>
+      <div>
+        <h1 class="font-extrabold text-sm leading-tight">AKASORA</h1>
+        <p class="text-[9px] text-amber-400 font-semibold uppercase">Staff Kasir</p>
+      </div>
     </div>
+    <button onclick="logout()" class="text-xs bg-slate-800 text-rose-400 border border-slate-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 active:scale-95 transition">
+      <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+      <span>Keluar</span>
+    </button>
   </header>
 
-  <!-- SIDEBAR DESKTOP/TABLET -->
+  <!-- SIDEBAR DESKTOP/TABLET LENGKAP DENGAN TOMBOL LOGOUT -->
   <aside class="hidden md:flex md:w-60 lg:w-64 bg-slate-900 text-white flex-col justify-between border-r border-slate-800 z-20 shrink-0">
     <div>
       <div class="p-6 border-b border-slate-800 flex items-center gap-3">
-        <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-black"><i data-lucide="droplet" class="w-5 h-5 fill-current"></i></div>
+        <div class="w-10 h-10 rounded-2xl bg-amber-500 text-slate-950 flex items-center justify-center font-black">
+          <i data-lucide="droplet" class="w-5 h-5 fill-current"></i>
+        </div>
         <div>
           <h1 class="font-extrabold text-base text-white">AKASORA</h1>
           <p class="text-[10px] text-amber-400 font-semibold uppercase">Kasir & Staff Toko</p>
@@ -39,6 +50,24 @@
         <button onclick="navigateTab('pos')" id="nav-d-pos" class="d-nav w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition"><i data-lucide="shopping-cart" class="w-4 h-4"></i><span>POS Cashier</span></button>
         <button onclick="navigateTab('stok')" id="nav-d-stok" class="d-nav w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition"><i data-lucide="boxes" class="w-4 h-4"></i><span>Input Stok Masuk</span></button>
       </nav>
+    </div>
+
+    <!-- User Profile Card & Tombol Logout Desktop -->
+    <div class="p-3 m-3 bg-slate-800/80 rounded-2xl border border-slate-700/50 flex flex-col gap-2.5">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">
+          <i data-lucide="user" class="w-4 h-4"></i>
+        </div>
+        <div class="truncate">
+          <p class="text-xs font-bold text-slate-200 truncate">Staff Kasir</p>
+          <span class="text-[10px] text-amber-400 font-medium">● Toko Offline</span>
+        </div>
+      </div>
+      <button onclick="logout()" 
+        class="w-full py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
+        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+        <span>Keluar Akun</span>
+      </button>
     </div>
   </aside>
 
@@ -103,7 +132,7 @@
         </div>
       </div>
 
-      <!-- Keranjang Kasir (Bisa Edit Harga Satuan) -->
+      <!-- Keranjang Kasir (Edit Harga Satuan) -->
       <aside class="hidden md:flex md:w-80 lg:w-96 bg-white rounded-3xl border shadow-sm flex-col h-full overflow-hidden shrink-0">
         <div class="p-4 border-b flex justify-between items-center">
           <h3 class="font-bold text-xs">Pesanan Kasir</h3>
@@ -176,6 +205,21 @@
   </div>
 
   <script>
+    // 1. AUTH GUARD KASIR / STAFF
+    const currentSession = JSON.parse(localStorage.getItem("akasora_session"));
+    if (!currentSession) {
+      alert("Sesi belum dimulai. Silakan login terlebih dahulu.");
+      window.location.href = "index.html";
+    }
+
+    // 2. FUNGSI LOGOUT
+    function logout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari akun Kasir?")) {
+        localStorage.removeItem("akasora_session");
+        window.location.href = "index.html";
+      }
+    }
+
     const defaultCatalog = [
       { id: 'v-500', name: 'Akasora 500g', weightG: 500, price: 70000, hpp: 45000, stock: 25 },
       { id: 'v-1000', name: 'Akasora 1000g', weightG: 1000, price: 118000, hpp: 80000, stock: 15 }
@@ -379,21 +423,6 @@
     }
 
     navigateTab('dashboard');
-<script>
-  // Cek otorisasi Kasir/User
-  const session = JSON.parse(localStorage.getItem("akasora_session"));
-  if (!session) {
-    alert("Silakan login terlebih dahulu.");
-    window.location.href = "index.html";
-  }
-
-  // Fungsi Logout
-  function logout() {
-    if (confirm("Keluar dari sesi Kasir?")) {
-      localStorage.removeItem("akasora_session");
-      window.location.href = "index.html";
-    }
-  }
-</script>
+  </script>
 </body>
 </html>
