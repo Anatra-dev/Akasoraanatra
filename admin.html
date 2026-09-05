@@ -102,9 +102,9 @@
           <p id="dash-detail-terjual" class="text-[10px] text-slate-400 mt-0.5">500g: 0 | 1000g: 0</p>
         </div>
         <div class="bg-white p-4 rounded-2xl border border-slate-100 shadow-sm">
-          <span class="text-[10px] font-bold uppercase text-slate-400">Hutang Vendor</span>
-          <p id="dash-total-hutang" class="text-xl sm:text-2xl font-black text-rose-600 mt-2">Rp 0</p>
-          <p class="text-[10px] text-rose-400 font-medium mt-0.5" id="dash-count-hutang">0 nota belum lunas</p>
+          <span class="text-[10px] font-bold uppercase text-slate-400">Pembayaran Vendor</span>
+          <p id="dash-total-pembayaran" class="text-xl sm:text-2xl font-black text-rose-600 mt-2">Rp 0</p>
+          <p class="text-[10px] text-rose-400 font-medium mt-0.5" id="dash-count-pembayaran">0 nota belum lunas</p>
         </div>
       </div>
 
@@ -399,8 +399,8 @@
       document.getElementById('dash-avg-margin').innerText = `Margin: ${o>0 ? ((laba/o)*100).toFixed(1):0}%`;
       document.getElementById('dash-total-volume').innerText = `${(g/1000).toFixed(1)} Kg`;
       document.getElementById('dash-detail-terjual').innerText = `500g: ${c5} | 1000g: ${c1}`;
-      document.getElementById('dash-total-hutang').innerText = formatRp(ht);
-      document.getElementById('dash-count-hutang').innerText = `${ch} belum lunas`;
+      document.getElementById('dash-total-pembayaran').innerText = formatRp(ht);
+      document.getElementById('dash-count-pembayaran').innerText = `${ch} belum lunas`;
 
       document.getElementById('dash-inventory-cards').innerHTML = appData.catalog.map(p => `
         <div class="p-3.5 rounded-2xl bg-slate-50 border flex items-center justify-between">
