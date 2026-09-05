@@ -157,7 +157,7 @@
           <p id="dash-detail-terjual" class="text-[10px] text-stone-400 mt-0.5">500g: 0 | 1000g: 0</p>
         </div>
         <div class="bg-white p-4 rounded-2xl border border-stone-100 shadow-sm">
-          <span class="text-[10px] font-bold uppercase text-stone-400">Pembayaran Vendor</span>
+          <span class="text-[10px] font-bold uppercase text-stone-400">Pembayaran Rumah Madu Rokan</span>
           <p id="dash-total-pembayaran" class="text-xl sm:text-2xl font-black text-rose-600 mt-2">Rp 0</p>
           <p class="text-[10px] text-rose-400 font-medium mt-0.5" id="dash-count-pembayaran">0 nota belum lunas</p>
         </div>
@@ -245,7 +245,7 @@
                 <th class="p-3.5 text-right">Omzet</th>
                 <th class="p-3.5 text-right">HPP</th>
                 <th class="p-3.5 text-right">Laba</th>
-                <th class="p-3.5 text-center">Status Vendor</th>
+                <th class="p-3.5 text-center">Status Rumah Madu Rokan</th>
                 <th class="p-3.5 text-center">Aksi Admin</th>
               </tr>
             </thead>
@@ -342,8 +342,8 @@
         <div><label class="font-bold block mb-1">Total HPP (Rp)</label><input type="number" id="edit-trx-hpp" class="w-full border p-2 rounded-xl"></div>
       </div>
       <div>
-        <label class="font-bold block mb-1">Status Vendor</label>
-        <select id="edit-trx-vendor" class="w-full border p-2 rounded-xl font-bold">
+        <label class="font-bold block mb-1">Status Rumah Madu Rokan</label>
+        <select id="edit-trx-Rumah Madu Rokan" class="w-full border p-2 rounded-xl font-bold">
           <option value="Belum Lunas">Belum Lunas</option><option value="Lunas">Lunas</option>
         </select>
       </div>
@@ -445,7 +445,7 @@
       let o=0, h=0, g=0, c5=0, c1=0, ht=0, ch=0;
       appData.transactions.forEach(t => {
         o += t.totalNominal; h += t.totalHpp;
-        if(t.vendorStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
+        if(t.Rumah Madu RokanStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
         t.items.forEach(i => { g += (i.weightG * i.qty); if(i.weightG===500) c5+=i.qty; if(i.weightG===1000) c1+=i.qty; });
       });
       const laba = o - h;
@@ -602,7 +602,7 @@
       const trx = {
         id: Date.now(), code, date: new Date().toLocaleString('id-ID', {dateStyle:'short', timeStyle:'short'}),
         customer: cust, items: [...cart], totalQty: q, totalNominal: o, totalHpp: h,
-        labaKotor: o - h, paymentMethod: document.getElementById('pos-payment-method').value, vendorStatus: "Belum Lunas"
+        labaKotor: o - h, paymentMethod: document.getElementById('pos-payment-method').value, Rumah Madu RokanStatus: "Belum Lunas"
       };
       appData.transactions.unshift(trx);
       saveState();
@@ -624,7 +624,7 @@
           <td class="p-3 text-right font-black">${formatRp(t.totalNominal)}</td>
           <td class="p-3 text-right text-rose-600">${formatRp(t.totalHpp)}</td>
           <td class="p-3 text-right text-emerald-600 font-bold">${formatRp(t.labaKotor)}</td>
-          <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${t.vendorStatus==='Lunas'?'bg-emerald-100 text-emerald-800':'bg-rose-100 text-rose-800'}">${t.vendorStatus}</span></td>
+          <td class="p-3 text-center"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${t.Rumah Madu RokanStatus==='Lunas'?'bg-emerald-100 text-emerald-800':'bg-rose-100 text-rose-800'}">${t.Rumah Madu RokanStatus}</span></td>
           <td class="p-3 text-center">
             <div class="flex items-center justify-center gap-1.5">
               <button onclick="openEditTrxModal(${t.id})" class="p-1.5 bg-stone-100 hover:bg-stone-200 rounded-lg text-stone-700"><i data-lucide="edit" class="w-3.5 h-3.5"></i></button>
@@ -643,7 +643,7 @@
       document.getElementById('edit-trx-customer').value = t.customer;
       document.getElementById('edit-trx-nominal').value = t.totalNominal;
       document.getElementById('edit-trx-hpp').value = t.totalHpp;
-      document.getElementById('edit-trx-vendor').value = t.vendorStatus;
+      document.getElementById('edit-trx-Rumah Madu Rokan').value = t.Rumah Madu RokanStatus;
       document.getElementById('modal-edit-trx').classList.remove('hidden');
     }
     function closeEditTrxModal() { document.getElementById('modal-edit-trx').classList.add('hidden'); }
@@ -655,7 +655,7 @@
         t.totalNominal = parseInt(document.getElementById('edit-trx-nominal').value);
         t.totalHpp = parseInt(document.getElementById('edit-trx-hpp').value);
         t.labaKotor = t.totalNominal - t.totalHpp;
-        t.vendorStatus = document.getElementById('edit-trx-vendor').value;
+        t.Rumah Madu RokanStatus = document.getElementById('edit-trx-Rumah Madu Rokan').value;
         saveState();
         closeEditTrxModal();
         renderRekapTable();
