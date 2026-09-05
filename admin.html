@@ -16,7 +16,24 @@
 </head>
 <body class="bg-slate-100 text-slate-800 antialiased h-[100dvh] flex flex-col md:flex-row overflow-hidden select-none">
 
-  <!-- SIDEBAR DESKTOP/TABLET -->
+  <!-- HEADER MOBILE LENGKAP DENGAN TOMBOL LOGOUT -->
+  <header class="md:hidden bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800 z-30 shrink-0">
+    <div class="flex items-center gap-2">
+      <div class="w-8 h-8 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black">
+        <i data-lucide="droplet" class="w-4 h-4 fill-current"></i>
+      </div>
+      <div>
+        <h1 class="font-extrabold text-sm leading-tight">AKASORA</h1>
+        <p class="text-[9px] text-amber-400 font-semibold uppercase">Administrator</p>
+      </div>
+    </div>
+    <button onclick="logout()" class="text-xs bg-slate-800 text-rose-400 border border-slate-700 px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 active:scale-95 transition">
+      <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+      <span>Keluar</span>
+    </button>
+  </header>
+
+  <!-- SIDEBAR DESKTOP/TABLET LENGKAP DENGAN TOMBOL LOGOUT -->
   <aside class="hidden md:flex md:w-64 bg-slate-900 text-white flex-col justify-between border-r border-slate-800 z-20 shrink-0">
     <div>
       <div class="p-6 border-b border-slate-800 flex items-center gap-3">
@@ -36,13 +53,27 @@
         <button onclick="navigateTab('stok')" id="nav-d-stok" class="d-nav w-full flex items-center gap-3 px-4 py-3 rounded-2xl transition"><i data-lucide="boxes" class="w-4 h-4"></i><span>Stok & Katalog</span></button>
       </nav>
     </div>
-    <div class="p-4 m-3 bg-slate-800/80 rounded-2xl border border-slate-700/50 text-xs text-amber-300 font-bold flex items-center gap-2">
-      <i data-lucide="unlock" class="w-4 h-4 text-emerald-400"></i>
-      <span>Akses Penuh Seluruh Tabel</span>
+
+    <!-- User Profile Card & Tombol Logout Desktop -->
+    <div class="p-3 m-3 bg-slate-800/80 rounded-2xl border border-slate-700/50 flex flex-col gap-2.5">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-xs">
+          <i data-lucide="shield" class="w-4 h-4"></i>
+        </div>
+        <div class="truncate">
+          <p class="text-xs font-bold text-slate-200 truncate">Administrator</p>
+          <span class="text-[10px] text-amber-400 font-medium">● Super User</span>
+        </div>
+      </div>
+      <button onclick="logout()" 
+        class="w-full py-2 rounded-xl bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-400 text-xs font-bold transition flex items-center justify-center gap-2 active:scale-95">
+        <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+        <span>Keluar Akun</span>
+      </button>
     </div>
   </aside>
 
-  <!-- MAIN WRAPPER -->
+  <!-- MAIN VIEW WRAPPER -->
   <main class="flex-1 flex flex-col h-full overflow-hidden relative">
 
     <!-- 1. DASHBOARD -->
@@ -77,11 +108,9 @@
         </div>
       </div>
 
-      <!-- Tabel Kelola Master Katalog & Stok (Bisa Diedit Admin) -->
+      <!-- Tabel Kelola Master Katalog & Stok (Admin Edit) -->
       <div class="bg-white rounded-2xl sm:rounded-3xl p-5 border border-slate-100 shadow-sm">
-        <div class="flex justify-between items-center mb-3">
-          <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2"><i data-lucide="archive" class="w-4 h-4 text-amber-600"></i><span>Kelola Stok & Harga Master Madu (Admin Edit)</span></h3>
-        </div>
+        <h3 class="font-bold text-slate-800 text-sm flex items-center gap-2 mb-3"><i data-lucide="archive" class="w-4 h-4 text-amber-600"></i><span>Kelola Stok & Harga Master Madu (Admin Edit)</span></h3>
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3" id="dash-inventory-cards"></div>
       </div>
     </section>
@@ -112,7 +141,7 @@
         </div>
       </div>
 
-      <!-- Keranjang Kasir dengan Fitur Edit Harga Satuan -->
+      <!-- Keranjang Kasir (Edit Harga Satuan) -->
       <aside class="hidden md:flex md:w-80 lg:w-96 bg-white rounded-3xl border border-slate-200 shadow-sm flex-col h-full overflow-hidden shrink-0">
         <div class="p-4 border-b border-slate-100 flex justify-between items-center">
           <h3 class="font-bold text-slate-800 text-sm">Pesanan Kasir</h3>
@@ -305,24 +334,22 @@
     </div>
   </div>
 
-  <!-- MODAL STRUK SUKSES -->
-  <div id="modal-container" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
-    <div id="modal-card" class="bg-white w-full max-w-sm rounded-3xl p-5 shadow-2xl text-center space-y-3 transform scale-90 transition-all">
-      <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-full flex items-center justify-center mx-auto"><i data-lucide="check" class="w-6 h-6 stroke-[3]"></i></div>
-      <h3 class="font-bold text-base text-slate-800">Transaksi Berhasil Disimpan</h3>
-      <div class="bg-slate-50 border p-3.5 rounded-2xl text-xs text-left space-y-1">
-        <div class="flex justify-between"><span>Customer:</span><strong id="rec-customer">-</strong></div>
-        <div class="flex justify-between"><span>Nota:</span><span id="rec-code" class="font-mono font-bold">-</span></div>
-        <div class="flex justify-between pt-1 border-t font-black"><span>Total Bayar:</span><span id="rec-total" class="text-amber-700">Rp 0</span></div>
-      </div>
-      <div class="flex gap-2">
-        <button onclick="closeSuccessModal()" class="flex-1 py-2 border rounded-xl text-xs font-bold">Tutup</button>
-        <button onclick="window.print()" class="flex-1 py-2 bg-amber-600 text-white rounded-xl text-xs font-bold">Cetak</button>
-      </div>
-    </div>
-  </div>
-
   <script>
+    // 1. AUTH GUARD ADMINISTRATOR
+    const currentSession = JSON.parse(localStorage.getItem("akasora_session"));
+    if (!currentSession || currentSession.role !== "admin") {
+      alert("Akses ditolak! Halaman ini hanya dapat diakses oleh Administrator.");
+      window.location.href = "index.html";
+    }
+
+    // 2. FUNGSI LOGOUT
+    function logout() {
+      if (confirm("Apakah Anda yakin ingin keluar dari akun Administrator?")) {
+        localStorage.removeItem("akasora_session");
+        window.location.href = "index.html";
+      }
+    }
+
     const defaultCatalog = [
       { id: 'v-500', name: 'Akasora 500g', weightG: 500, price: 70000, hpp: 45000, stock: 25 },
       { id: 'v-1000', name: 'Akasora 1000g', weightG: 1000, price: 118000, hpp: 80000, stock: 15 }
@@ -359,7 +386,6 @@
       lucide.createIcons();
     }
 
-    // DASHBOARD & MASTER KATALOG EDIT
     function renderDashboard() {
       let o=0, h=0, g=0, c5=0, c1=0, ht=0, ch=0;
       appData.transactions.forEach(t => {
@@ -381,7 +407,7 @@
           <div>
             <span class="font-bold text-xs text-slate-800">${p.name}</span>
             <p class="text-[10px] text-slate-500">Jual: ${formatRp(p.price)} | HPP: ${formatRp(p.hpp)}</p>
-            <span class="text-[11px] font-black text-slate-900">${p.stock} btl</span>
+            <span class="text-[11px] font-black text-slate-900">${p.stock} btl sisa</span>
           </div>
           <button onclick="openEditCatalogModal('${p.id}')" class="px-2.5 py-1 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold flex items-center gap-1"><i data-lucide="edit-3" class="w-3.5 h-3.5"></i><span>Edit</span></button>
         </div>
@@ -414,7 +440,6 @@
       }
     }
 
-    // POS DENGAN EDIT HARGA SATUAN
     function renderPOS() {
       document.getElementById('pos-product-grid').innerHTML = appData.catalog.map(p => `
         <div onclick="addToCart('${p.id}')" class="bg-slate-50 p-4 rounded-2xl border hover:border-amber-500 cursor-pointer flex flex-col justify-between group active:scale-95">
@@ -490,7 +515,6 @@
       lucide.createIcons();
     }
 
-    // EDIT HARGA SATUAN DI KERANJANG
     function openEditCartPriceModal(id) {
       activeEditCartId = id;
       const i = cart.find(x => x.id === id);
@@ -510,7 +534,7 @@
       }
     }
 
-    async function prosesOrderKasir() {
+    function prosesOrderKasir() {
       if (cart.length === 0) return;
       const cust = document.getElementById('pos-customer-name').value.trim() || "Pelanggan Umum";
       const code = "AK-" + Math.floor(100000 + Math.random() * 900000);
@@ -528,23 +552,12 @@
       appData.transactions.unshift(trx);
       saveState();
 
-      document.getElementById('rec-customer').innerText = cust;
-      document.getElementById('rec-code').innerText = code;
-      document.getElementById('rec-total').innerText = formatRp(o);
-      const m = document.getElementById('modal-container');
-      const c = document.getElementById('modal-card');
-      m.classList.remove('opacity-0', 'pointer-events-none');
-      c.classList.remove('scale-90');
+      alert(`Transaksi ${code} atas nama ${cust} Berhasil Disimpan!`);
       cart = [];
       document.getElementById('pos-customer-name').value = "";
       renderPOS();
     }
-    function closeSuccessModal() {
-      document.getElementById('modal-container').classList.add('opacity-0', 'pointer-events-none');
-      document.getElementById('modal-card').classList.add('scale-90');
-    }
 
-    // REKAP PENJUALAN DENGAN FITUR EDIT & HAPUS
     function renderRekapTable() {
       const q = (document.getElementById('rekap-search').value||'').toLowerCase();
       const filtered = appData.transactions.filter(t => t.customer.toLowerCase().includes(q) || t.code.toLowerCase().includes(q));
@@ -603,7 +616,6 @@
       }
     }
 
-    // OMZET VIEW
     function renderOmzetPage() {
       let o=0, h=0;
       appData.transactions.forEach(t => { o += t.totalNominal; h += t.totalHpp; });
@@ -613,7 +625,6 @@
       document.getElementById('omzet-percentage-badge').innerText = `Margin: ${o>0?(((o-h)/o)*100).toFixed(1):0}%`;
     }
 
-    // RIWAYAT STOK MASUK EDIT & HAPUS
     function handleStockIn(e) {
       e.preventDefault();
       const variant = document.getElementById('stok-variant-select').value;
@@ -685,21 +696,6 @@
     }
 
     navigateTab('dashboard');
-    <script>
-  // Cek otorisasi Admin
-  const session = JSON.parse(localStorage.getItem("akasora_session"));
-  if (!session || session.role !== "admin") {
-    alert("Akses ditolak! Silakan login sebagai Administrator.");
-    window.location.href = "index.html";
-  }
-
-  // Fungsi Logout
-  function logout() {
-    if (confirm("Keluar dari sesi Administrator?")) {
-      localStorage.removeItem("akasora_session");
-      window.location.href = "index.html";
-    }
-  }
-</script>
+  </script>
 </body>
 </html>
