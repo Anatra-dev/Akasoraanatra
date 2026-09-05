@@ -168,14 +168,14 @@
               </div>
             </div>
             <div class="mt-3">
-              <p id="dash-total-pembayaran" class="text-2xl sm:text-3xl font-black text-rose-600">Rp 0</p>
+              <p id="dash-total-hutang" class="text-2xl sm:text-3xl font-black text-rose-600">Rp 0</p>
               <div class="mt-2 p-2 bg-rose-50/50 rounded-xl border border-rose-100 flex items-center justify-between">
                 <span class="text-xs font-bold text-slate-600">Kewajiban:</span>
-                <span id="dash-count-pembayaran" class="text-xs font-black text-rose-700">0 nota pending</span>
+                <span id="dash-count-hutang" class="text-xs font-black text-rose-700">0 nota pending</span>
               </div>
             </div>
           </div>
-          <span class="text-[10px] text-slate-400 font-medium pt-3 border-t border-slate-100 mt-4 block">pembayaran modal ke penyuplai</span>
+          <span class="text-[10px] text-slate-400 font-medium pt-3 border-t border-slate-100 mt-4 block">Hutang modal ke penyuplai</span>
         </div>
 
       </div>
@@ -323,8 +323,8 @@
       <!-- 3. Total Pembayaran ke Vendor -->
       <div class="border border-slate-300 p-3 rounded-xl bg-slate-50">
         <span class="text-slate-500 uppercase text-[9px] font-bold tracking-wider block">PEMBAYARAN KE VENDOR</span>
-        <strong id="pdf-pembayaran-vendor" class="text-lg font-black text-rose-600 block my-0.5">Rp 0</strong>
-        <span id="pdf-pembayaran-vendor-sub" class="text-[10px] text-rose-600 font-medium block">0 nota pending</span>
+        <strong id="pdf-hutang-vendor" class="text-lg font-black text-rose-600 block my-0.5">Rp 0</strong>
+        <span id="pdf-hutang-vendor-sub" class="text-[10px] text-rose-600 font-medium block">0 nota pending</span>
       </div>
 
     </div>
@@ -443,8 +443,8 @@
       document.getElementById('dash-detail-terjual-sub').innerText = `Rincian: 500g: ${c5} btl | 1000g: ${c1} btl`;
 
       // Render Box 3 (Pembayaran ke Vendor)
-      document.getElementById('dash-total-pembayaran').innerText = formatRp(ht);
-      document.getElementById('dash-count-pembayaran').innerText = `${ch} nota pending`;
+      document.getElementById('dash-total-hutang').innerText = formatRp(ht);
+      document.getElementById('dash-count-hutang').innerText = `${ch} nota pending`;
 
       // Render Rincian Bawah
       document.getElementById('dash-inventory-cards').innerHTML = appData.catalog.map(p => {
@@ -500,8 +500,8 @@
       document.getElementById('pdf-total-terjual').innerText = `${tTotalBotol} Botol`;
       document.getElementById('pdf-volume-terjual').innerText = `Volume: ${(tTotalGram / 1000).toFixed(1)} Kg`;
 
-      document.getElementById('pdf-pembayaran-vendor').innerText = formatRp(ht);
-      document.getElementById('pdf-pembayaran-vendor-sub').innerText = `${ch} nota belum disetor`;
+      document.getElementById('pdf-hutang-vendor').innerText = formatRp(ht);
+      document.getElementById('pdf-hutang-vendor-sub').innerText = `${ch} nota belum disetor`;
 
       // Tabel Rincian PDF
       document.getElementById('pdf-table-body').innerHTML = appData.catalog.map(p => {
