@@ -379,6 +379,21 @@
     }
 
     navigateTab('dashboard');
-  </script>
+<script>
+  // Cek otorisasi Kasir/User
+  const session = JSON.parse(localStorage.getItem("akasora_session"));
+  if (!session) {
+    alert("Silakan login terlebih dahulu.");
+    window.location.href = "index.html";
+  }
+
+  // Fungsi Logout
+  function logout() {
+    if (confirm("Keluar dari sesi Kasir?")) {
+      localStorage.removeItem("akasora_session");
+      window.location.href = "index.html";
+    }
+  }
+</script>
 </body>
 </html>
