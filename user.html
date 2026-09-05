@@ -151,7 +151,7 @@
       <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-3">
         <div>
           <h2 class="font-display text-xl sm:text-2xl font-semibold text-stone-800">Dashboard Operasional</h2>
-          <p class="text-[11px] sm:text-xs text-stone-400">Ringkasan pasokan masuk, volume madu terjual, dan kewajiban vendor.</p>
+          <p class="text-[11px] sm:text-xs text-stone-400">Ringkasan pasokan masuk, volume madu terjual, dan kewajiban Rumah Madu Rokan.</p>
         </div>
         <div class="flex items-center gap-2.5">
           <!-- Tombol Cetak PDF Samping Buka Kasir -->
@@ -210,11 +210,11 @@
           <p id="dash-detail-terjual-sub" class="text-[10px] text-stone-400 font-medium pt-3 border-t border-stone-100 mt-4 truncate">500g: 0 btl | 1000g: 0 btl</p>
         </div>
 
-        <!-- BOX 3: TOTAL PEMBAYARAN KE VENDOR -->
+        <!-- BOX 3: TOTAL PEMBAYARAN KE Rumah Madu Rokan -->
         <div class="bg-white p-5 rounded-2xl sm:rounded-3xl border border-stone-200/80 shadow-sm flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between text-stone-400">
-              <span class="text-[10px] font-bold uppercase tracking-wider">Pembayaran ke Vendor</span>
+              <span class="text-[10px] font-bold uppercase tracking-wider">Pembayaran ke Rumah Madu Rokan</span>
               <div class="w-8 h-8 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center">
                 <i data-lucide="clock" class="w-4 h-4"></i>
               </div>
@@ -372,11 +372,11 @@
         <span id="pdf-volume-terjual" class="text-[10px] text-stone-700 font-bold block">Volume: 0.0 Kg</span>
       </div>
 
-      <!-- 3. Total Pembayaran ke Vendor -->
+      <!-- 3. Total Pembayaran ke Rumah Madu Rokan -->
       <div class="border border-stone-300 p-3 rounded-xl bg-stone-50">
-        <span class="text-stone-500 uppercase text-[9px] font-bold tracking-wider block">PEMBAYARAN KE VENDOR</span>
-        <strong id="pdf-hutang-vendor" class="text-lg font-black text-rose-600 block my-0.5">Rp 0</strong>
-        <span id="pdf-hutang-vendor-sub" class="text-[10px] text-rose-600 font-medium block">0 nota pending</span>
+        <span class="text-stone-500 uppercase text-[9px] font-bold tracking-wider block">PEMBAYARAN KE Rumah Madu Rokan</span>
+        <strong id="pdf-hutang-Rumah Madu Rokan" class="text-lg font-black text-rose-600 block my-0.5">Rp 0</strong>
+        <span id="pdf-hutang-Rumah Madu Rokan-sub" class="text-[10px] text-rose-600 font-medium block">0 nota pending</span>
       </div>
 
     </div>
@@ -476,7 +476,7 @@
       let ht = 0, ch = 0;
 
       appData.transactions.forEach(t => {
-        if (t.vendorStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
+        if (t.Rumah Madu RokanStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
         t.items.forEach(i => {
           tTotalBotol += i.qty;
           tTotalGram += (i.weightG * i.qty);
@@ -494,7 +494,7 @@
       document.getElementById('dash-volume-terjual').innerText = `${(tTotalGram / 1000).toFixed(1)} Kg`;
       document.getElementById('dash-detail-terjual-sub').innerText = `Rincian: 500g: ${c5} btl | 1000g: ${c1} btl`;
 
-      // Render Box 3 (Pembayaran ke Vendor)
+      // Render Box 3 (Pembayaran ke Rumah Madu Rokan)
       document.getElementById('dash-total-hutang').innerText = formatRp(ht);
       document.getElementById('dash-count-hutang').innerText = `${ch} nota pending`;
 
@@ -530,14 +530,14 @@
         mTotalGram += (weight * l.qty);
       });
 
-      // 2. Data Terjual & Vendor
+      // 2. Data Terjual & Rumah Madu Rokan
       let tTotalBotol = 0;
       let tTotalGram = 0;
       let ht = 0, ch = 0;
       const variantTerjual = {};
 
       appData.transactions.forEach(t => {
-        if (t.vendorStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
+        if (t.Rumah Madu RokanStatus === 'Belum Lunas') { ht += t.totalHpp; ch++; }
         t.items.forEach(i => {
           tTotalBotol += i.qty;
           tTotalGram += (i.weightG * i.qty);
@@ -552,8 +552,8 @@
       document.getElementById('pdf-total-terjual').innerText = `${tTotalBotol} Botol`;
       document.getElementById('pdf-volume-terjual').innerText = `Volume: ${(tTotalGram / 1000).toFixed(1)} Kg`;
 
-      document.getElementById('pdf-hutang-vendor').innerText = formatRp(ht);
-      document.getElementById('pdf-hutang-vendor-sub').innerText = `${ch} nota belum disetor`;
+      document.getElementById('pdf-hutang-Rumah Madu Rokan').innerText = formatRp(ht);
+      document.getElementById('pdf-hutang-Rumah Madu Rokan-sub').innerText = `${ch} nota belum disetor`;
 
       // Tabel Rincian PDF
       document.getElementById('pdf-table-body').innerHTML = appData.catalog.map(p => {
@@ -688,7 +688,7 @@
       appData.transactions.unshift({
         id: Date.now(), code, date: new Date().toLocaleString('id-ID', {dateStyle:'short', timeStyle:'short'}),
         customer: cust, items: [...cart], totalQty: q, totalNominal: o, totalHpp: h,
-        labaKotor: o - h, paymentMethod: document.getElementById('pos-payment-method').value, vendorStatus: "Belum Lunas",
+        labaKotor: o - h, paymentMethod: document.getElementById('pos-payment-method').value, Rumah Madu RokanStatus: "Belum Lunas",
         kasir: "Bayu"
       });
       saveState();
