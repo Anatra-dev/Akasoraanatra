@@ -266,7 +266,7 @@
       document.getElementById('dash-total-omzet').innerText = formatRp(o);
       document.getElementById('dash-total-masuk').innerText = `${mTotal} Botol`;
       document.getElementById('dash-total-volume').innerText = `${(g/1000).toFixed(1)} Kg`;
-      document.getElementById('dash-total-hutang').innerText = formatRp(ht);
+      document.getElementById('dash-total-pembayaran').innerText = formatRp(ht);
 
       document.getElementById('dash-inventory-cards').innerHTML = appData.catalog.map(p => `
         <div class="p-3.5 rounded-2xl bg-slate-50 border flex justify-between items-center">
