@@ -685,6 +685,21 @@
     }
 
     navigateTab('dashboard');
-  </script>
+    <script>
+  // Cek otorisasi Admin
+  const session = JSON.parse(localStorage.getItem("akasora_session"));
+  if (!session || session.role !== "admin") {
+    alert("Akses ditolak! Silakan login sebagai Administrator.");
+    window.location.href = "index.html";
+  }
+
+  // Fungsi Logout
+  function logout() {
+    if (confirm("Keluar dari sesi Administrator?")) {
+      localStorage.removeItem("akasora_session");
+      window.location.href = "index.html";
+    }
+  }
+</script>
 </body>
 </html>
